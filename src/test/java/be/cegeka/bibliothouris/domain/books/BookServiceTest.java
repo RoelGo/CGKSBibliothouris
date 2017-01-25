@@ -1,24 +1,17 @@
 package be.cegeka.bibliothouris.domain.books;
 
-import be.cegeka.bibliothouris.domain.users.User;
-import be.cegeka.bibliothouris.domain.users.UserRepository;
-import be.cegeka.bibliothouris.domain.users.UserService;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -63,15 +56,22 @@ public class BookServiceTest {
     @Test
     public void searchBook() throws Exception {
         List<Book> testList = new ArrayList<>();
+        List<Book> testList2 = new ArrayList<>();
         Book testBook = new Book("Harry 2", "1235670123", "J.K", "Rowling");
-        Book testBook2 = new Book("Harry 2", "3335670123", "J.K", "Rowling");
+        Book testBook2 = new Book("Matilda", "3335670123", "Roald", "Dahl");
+        Book testBook3 = new Book("Harry 3", "333567884", "J.K", "Rowling");
+        Book testBook4 = new Book("The Old Man And The Sea", "3335679456", "Ernest", "Hemingway");
+        Book testBook5 = new Book("Trainspotting", "33356701332", "Irvin", "Welsh");
         testList.add(testBook);
-        testList.add(testBook2);
+        testList.add(testBook3);
+        testList2.add(testBook3);
+        testList2.add(testBook2);
 
-        when(bookRepository.getAllBooks()).thenReturn(Arrays.asList(testBook, testBook2));
+        when(bookRepository.getAllBooks()).thenReturn(Arrays.asList(testBook, testBook2, testBook3, testBook4, testBook5));
 
-        assertThat(bookService.searchBook("1235670123")).isEqualTo(testList);
         assertThat(bookService.searchBook("J.K")).isEqualTo(testList);
+        assertThat(bookService.searchBook("Irvin")).isEqualTo(Arrays.asList(testBook5));
+        //assertThat(bookService.searchBook("333")).isEqualTo(testList2);
         assertThat(bookService.searchBook("Rowling")).isEqualTo(testList);
     }
 
