@@ -24,17 +24,30 @@ public class BookService {
         return bookRepository.getAllBooks();
     }
 
-    public List<Book> searchISBN(String ISBN) {
+
+    public List<Book> searchBook(String searchInput) {
         List<Book> searchList = bookRepository.getAllBooks();
         List<Book> hitList = new ArrayList<>();
         for (Book book : searchList) {
-            if (book.getISBN().equals(ISBN)) {
-               hitList.add(book);
+            if (isbnIsEqual(book, searchInput) || authorFirstNameIsEqual(book, searchInput) || authorLastNameIsEqual(book, searchInput)) {
+                hitList.add(book);
             }
         }
         if (hitList.size() < 1) {
-            System.out.println("no matches found.");
+            System.out.println("No matches found");
         }
         return hitList;
+    }
+
+    protected boolean isbnIsEqual(Book book, String searchInput) {
+        return book.getISBN().equals(searchInput);
+    }
+
+    protected boolean authorFirstNameIsEqual (Book book, String searchInput){
+        return book.getAuthorFirstName().equals(searchInput);
+    }
+
+    protected boolean authorLastNameIsEqual (Book book, String searchInput){
+        return book.getAuthorLastName().equals(searchInput);
     }
 }
