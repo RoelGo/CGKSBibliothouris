@@ -7,16 +7,16 @@ import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
  */
 public class Book {
 
-    private final String name;
+    private final String title;
     private final long ISBN;
 
-    public Book(String name, long ISBN) {
-        this.name = name;
+    public Book(String title, long ISBN) {
+        this.title = title;
         this.ISBN = ISBN;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public long getISBN() {
@@ -31,12 +31,12 @@ public class Book {
         Book book = (Book) o;
 
         if (ISBN != book.ISBN) return false;
-        return name != null ? name.equals(book.name) : book.name == null;
+        return title != null ? title.equals(book.title) : book.title == null;
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = title != null ? title.hashCode() : 0;
         result = 31 * result + (int) (ISBN ^ (ISBN >>> 32));
         return result;
     }
