@@ -29,8 +29,10 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    void addUser(@RequestParam(value = "name", required = true) String name) {
-        userService.addUser(name);
+    void addUser(@RequestParam(value = "first name" ) String firstName) {
+        userService.addUser(firstName);
     }
+
+
 
 }
