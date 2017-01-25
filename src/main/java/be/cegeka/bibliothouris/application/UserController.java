@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import javax.xml.bind.ValidationException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Controller
 @RequestMapping("/user")
@@ -31,12 +31,16 @@ public class UserController {
     @ResponseBody
     void addUser(@RequestParam(value = "first name" ) String firstName,
                  @RequestParam(value = "last name") String lastName,
-                 @RequestParam(value = "INSZ") long insz,
+                 @RequestParam(value = "INSZ") String insz,
                  @RequestParam(value = "city")  String city,
                  @RequestParam(value = "street")  String street,
-                 @RequestParam(value = "door number") int doorNumber,
-                 @RequestParam(value = "postal code") int postalCode) {
-        userService.addUser( firstName,  lastName,  insz,  city,  street,  doorNumber, postalCode);
+                 @RequestParam(value = "door number") String doorNumber,
+                 @RequestParam(value = "postal code") String postalCode) {
+        try {
+            userService.addUser( firstName,  lastName,  insz,  city,  street,  doorNumber, postalCode);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
     }
 
 

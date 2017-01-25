@@ -5,14 +5,14 @@ public class User {
     private final long id;
     private final String firstName;
     private final String lastName;
-    private final long insz;
+    private final String insz;
     private final String city;
     private final String street;
-    private final int doorNumber;
-    private final int postalCode;
+    private final String doorNumber;
+    private final String postalCode;
 
 
-    public User(long id, String firstName, String lastName, long insz, String city, String street, int doorNumber, int postalCode) {
+    public User(long id, String firstName, String lastName, String insz, String city, String street, String doorNumber, String postalCode) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,7 +35,7 @@ public class User {
         return lastName;
     }
 
-    public long getInsz() {
+    public String getInsz() {
         return insz;
     }
 
@@ -47,11 +47,11 @@ public class User {
         return street;
     }
 
-    public int getDoorNumber() {
+    public String getDoorNumber() {
         return doorNumber;
     }
 
-    public int getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
@@ -63,13 +63,13 @@ public class User {
         User user = (User) o;
 
         if (id != user.id) return false;
-        if (insz != user.insz) return false;
-        if (doorNumber != user.doorNumber) return false;
-        if (postalCode != user.postalCode) return false;
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        if (insz != null ? !insz.equals(user.insz) : user.insz != null) return false;
         if (city != null ? !city.equals(user.city) : user.city != null) return false;
-        return street != null ? street.equals(user.street) : user.street == null;
+        if (street != null ? !street.equals(user.street) : user.street != null) return false;
+        if (doorNumber != null ? !doorNumber.equals(user.doorNumber) : user.doorNumber != null) return false;
+        return postalCode != null ? postalCode.equals(user.postalCode) : user.postalCode == null;
     }
 
     @Override
@@ -77,11 +77,11 @@ public class User {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (int) (insz ^ (insz >>> 32));
+        result = 31 * result + (insz != null ? insz.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (street != null ? street.hashCode() : 0);
-        result = 31 * result + doorNumber;
-        result = 31 * result + postalCode;
+        result = 31 * result + (doorNumber != null ? doorNumber.hashCode() : 0);
+        result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
         return result;
     }
 }
