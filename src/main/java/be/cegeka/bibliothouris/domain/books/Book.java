@@ -8,11 +8,11 @@ import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 public class Book {
 
     private final String title;
-    private final long ISBN;
+    private final String ISBN;
     private final String authorFirstName;
     private final String authorLastName;
 
-    public Book(String title, long ISBN, String authorFirstName, String authorLastName) {
+    public Book(String title, String ISBN, String authorFirstName, String authorLastName) {
         this.title = title;
         this.ISBN = ISBN;
         this.authorFirstName = authorFirstName;
@@ -32,7 +32,7 @@ public class Book {
         return title;
     }
 
-    public long getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
@@ -43,8 +43,8 @@ public class Book {
 
         Book book = (Book) o;
 
-        if (ISBN != book.ISBN) return false;
         if (title != null ? !title.equals(book.title) : book.title != null) return false;
+        if (ISBN != null ? !ISBN.equals(book.ISBN) : book.ISBN != null) return false;
         if (authorFirstName != null ? !authorFirstName.equals(book.authorFirstName) : book.authorFirstName != null)
             return false;
         return authorLastName != null ? authorLastName.equals(book.authorLastName) : book.authorLastName == null;
@@ -53,9 +53,19 @@ public class Book {
     @Override
     public int hashCode() {
         int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (int) (ISBN ^ (ISBN >>> 32));
+        result = 31 * result + (ISBN != null ? ISBN.hashCode() : 0);
         result = 31 * result + (authorFirstName != null ? authorFirstName.hashCode() : 0);
         result = 31 * result + (authorLastName != null ? authorLastName.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", ISBN=" + ISBN +
+                ", authorFirstName='" + authorFirstName + '\'' +
+                ", authorLastName='" + authorLastName + '\'' +
+                '}';
     }
 }

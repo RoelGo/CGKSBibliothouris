@@ -12,6 +12,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -43,20 +44,32 @@ public class BookServiceTest {
   */
     @Test
     public void addBook() throws Exception {
-        bookService.addBook("Harry Potter", 123456789, "J.K", "Rowling");
-        verify(bookRepository).addBook(new Book("Harry Potter", 123456789, "J.K", "Rowling"));
+        bookService.addBook("Harry Potter", "123456789", "J.K", "Rowling");
+        verify(bookRepository).addBook(new Book("Harry Potter", "123456789", "J.K", "Rowling"));
     }
 
     @Test
     public void getAllBooks() throws Exception {
-        Book book1 = new Book("Harry 1", 123567890, "J.K", "Rowling");
-        Book book2 = new Book("Harry 2", 1235670123, "J.K", "Rowling");
-        Book book3 = new Book("Harry 3", 356701231, "J.K", "Rowling");
+        Book book1 = new Book("Harry 1", "123567890", "J.K", "Rowling");
+        Book book2 = new Book("Harry 2", "1235670123", "J.K", "Rowling");
+        Book book3 = new Book("Harry 3", "356701231", "J.K", "Rowling");
 
         when(bookRepository.getAllBooks()).thenReturn(Arrays.asList(book1, book2));
 
         assertThat(bookService.getAllBooks()).containsOnly(book1, book2);
 
+    }
+
+    @Test
+    public void searchISBN() throws Exception {
+        List<Book> testList = new ArrayList<>();
+        Book testBook = new Book("Harry 2", "1235670123", "J.K", "Rowling");
+        Book testBook2 = new Book("Harry 2", "3335670123", "J.K", "Rowling");
+        testList.add(testBook);
+
+        when(bookRepository.getAllBooks()).thenReturn(Arrays.asList(testBook, testBook2));
+
+        assertThat(bookService.searchISBN("1235670123")).isEqualTo(testList);
     }
 
 }

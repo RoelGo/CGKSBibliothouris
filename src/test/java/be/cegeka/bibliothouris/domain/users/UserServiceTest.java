@@ -34,14 +34,14 @@ public class UserServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        ReflectionTestUtils.setField(userService, "counter", new AtomicLong(4l));
+        ReflectionTestUtils.setField(userService, "counter", new AtomicLong(4L));
     }
 
     @Test
     public void addUser_ShouldCallUserRepository() throws Exception {
         userService.addUser("Seppe");
 
-        verify(userRepository).addUser(new User(5l, "Seppe"));
+        verify(userRepository).addUser(new User(5L, "Seppe"));
     }
 
     @Test
