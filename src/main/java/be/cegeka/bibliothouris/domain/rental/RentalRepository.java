@@ -12,10 +12,11 @@ public class RentalRepository {
 
     private List<Rental> rentals = new ArrayList<>();
 
-    public void addRental(Rental rental){
+    public void addRental(Rental rental) {
         rentals.add(rental);
     }
-    public void removeRental(Rental rental){
+
+    public void removeRental(Rental rental) {
         rentals.remove(rental);
     }
 
