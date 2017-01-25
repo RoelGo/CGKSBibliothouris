@@ -1,7 +1,5 @@
 package be.cegeka.bibliothouris.domain.books;
 
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
-
 /**
  * Created by davids on 25/01/2017.
  */

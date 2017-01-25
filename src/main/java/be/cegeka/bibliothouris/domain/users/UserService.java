@@ -15,9 +15,8 @@ public class UserService {
     private final AtomicLong counter = new AtomicLong();
 
     public void addUser(String firstName, String lastName, String insz, String city, String street, String doorNumber, String postalCode) throws ValidationException {
-        userRepository.addUser(new User(counter.incrementAndGet() ,  firstName,  lastName,  insz,  city,  street,  doorNumber, postalCode));
+        userRepository.addUser(new User(counter.incrementAndGet(), firstName, lastName, insz, city, street, doorNumber, postalCode));
     }
-
 
 
     public List<User> getAllUsers() {

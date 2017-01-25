@@ -4,7 +4,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by davids on 25/01/2017.
@@ -43,11 +42,11 @@ public class BookService {
         return book.getISBN().equals(searchInput);
     }
 
-    protected boolean authorFirstNameIsEqual (Book book, String searchInput){
+    protected boolean authorFirstNameIsEqual(Book book, String searchInput) {
         return book.getAuthorFirstName().equals(searchInput);
     }
 
-    protected boolean authorLastNameIsEqual (Book book, String searchInput){
+    protected boolean authorLastNameIsEqual(Book book, String searchInput) {
         return book.getAuthorLastName().equals(searchInput);
     }
 }
