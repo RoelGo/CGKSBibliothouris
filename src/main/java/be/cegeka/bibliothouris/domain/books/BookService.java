@@ -15,8 +15,8 @@ public class BookService {
     private BookRepository bookRepository;
 
 
-    public void addBook(String title, long ISBN) {
-        bookRepository.addBook(new Book(title, ISBN));
+    public void addBook(String title, long ISBN, String firstName, String lastName) {
+        bookRepository.addBook(new Book(title, ISBN, firstName, lastName));
     }
 
     public List<Book> getAllBooks() {
