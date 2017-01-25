@@ -61,15 +61,18 @@ public class BookServiceTest {
     }
 
     @Test
-    public void searchISBN() throws Exception {
+    public void searchBook() throws Exception {
         List<Book> testList = new ArrayList<>();
         Book testBook = new Book("Harry 2", "1235670123", "J.K", "Rowling");
         Book testBook2 = new Book("Harry 2", "3335670123", "J.K", "Rowling");
         testList.add(testBook);
+        testList.add(testBook2);
 
         when(bookRepository.getAllBooks()).thenReturn(Arrays.asList(testBook, testBook2));
 
-        assertThat(bookService.searchISBN("1235670123")).isEqualTo(testList);
+        assertThat(bookService.searchBook("1235670123")).isEqualTo(testList);
+        assertThat(bookService.searchBook("J.K")).isEqualTo(testList);
+        assertThat(bookService.searchBook("Rowling")).isEqualTo(testList);
     }
 
 }
