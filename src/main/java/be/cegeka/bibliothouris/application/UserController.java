@@ -29,8 +29,14 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    void addUser(@RequestParam(value = "first name" ) String firstName) {
-        userService.addUser(firstName);
+    void addUser(@RequestParam(value = "first name" ) String firstName,
+                 @RequestParam(value = "last name") String lastName,
+                 @RequestParam(value = "INSZ") long insz,
+                 @RequestParam(value = "city")  String city,
+                 @RequestParam(value = "street")  String street,
+                 @RequestParam(value = "door number") int doorNumber,
+                 @RequestParam(value = "postal code") int postalCode) {
+        userService.addUser( firstName,  lastName,  insz,  city,  street,  doorNumber, postalCode);
     }
 
 

@@ -13,8 +13,8 @@ public class UserService {
 
     private final AtomicLong counter = new AtomicLong();
 
-    public void addUser(String name){
-        userRepository.addUser(new User(counter.incrementAndGet() , name));
+    public void addUser(String firstName, String lastName, long insz, String city, String street, int doorNumber, int postalCode){
+        userRepository.addUser(new User(counter.incrementAndGet() ,  firstName,  lastName,  insz,  city,  street,  doorNumber,  postalCode));
     }
 
     public List<User> getAllUsers() {
