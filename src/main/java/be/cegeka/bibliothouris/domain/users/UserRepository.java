@@ -18,7 +18,7 @@ public class UserRepository {
         boolean isUnique = true;
         String errorMessage = "";
         for (User user1 : users) {
-            isUnique = user1.getInsz().equals(user.getInsz());
+            isUnique = !user1.getInsz().equals(user.getInsz());
         }
         if (!isUnique){
          errorMessage += "INSZ is not unique";
