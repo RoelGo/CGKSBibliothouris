@@ -10,19 +10,19 @@ import java.time.LocalDate;
  */
 public class Rental {
 
-    private final int id;
+    private final long id;
     private final User user;
     private final Book book;
     private final LocalDate rentalDate;
 
-    public Rental(int id, User user, Book book, LocalDate rentalDate) {
+    public Rental(long id, User user, Book book, LocalDate rentalDate) {
         this.id = id;
         this.user = user;
         this.book = book;
         this.rentalDate = rentalDate;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -37,6 +37,7 @@ public class Rental {
     public LocalDate getRentalDate() {
         return rentalDate;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -53,11 +54,13 @@ public class Rental {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (book != null ? book.hashCode() : 0);
         result = 31 * result + (rentalDate != null ? rentalDate.hashCode() : 0);
         return result;
     }
+
+
 }
 
