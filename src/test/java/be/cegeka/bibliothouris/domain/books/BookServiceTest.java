@@ -43,15 +43,15 @@ public class BookServiceTest {
   */
     @Test
     public void addBook() throws Exception {
-        bookService.addBook("Harry Potter", 123456789);
-        verify(bookRepository).addBook(new Book("Harry Potter", 123456789));
+        bookService.addBook("Harry Potter", 123456789, "J.K", "Rowling");
+        verify(bookRepository).addBook(new Book("Harry Potter", 123456789, "J.K", "Rowling"));
     }
 
     @Test
     public void getAllBooks() throws Exception {
-        Book book1 = new Book("Harry 1", 123567890);
-        Book book2 = new Book("Harry 2", 1235670123);
-        Book book3 = new Book("Harry 3", 356701231);
+        Book book1 = new Book("Harry 1", 123567890, "J.K", "Rowling");
+        Book book2 = new Book("Harry 2", 1235670123, "J.K", "Rowling");
+        Book book3 = new Book("Harry 3", 356701231, "J.K", "Rowling");
 
         when(bookRepository.getAllBooks()).thenReturn(Arrays.asList(book1, book2));
 
