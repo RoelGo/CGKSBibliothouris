@@ -17,7 +17,6 @@ public class Book {
         this.authorLastName = authorLastName;
     }
 
-
     public String getAuthorFirstName() {
         return authorFirstName;
     }
