@@ -40,9 +40,9 @@ public class BookService {
 
     protected boolean hasMatch(Book book, String searchInput) {
 
-        return (book.getISBN().contains(searchInput) ||
-                book.getAuthorFirstName().contains(searchInput) ||
-               book.getAuthorLastName().contains(searchInput));
+        return (book.getISBN().matches("(.*)" + searchInput + "(.*)") ||
+                book.getAuthorFirstName().matches("(.*)" + searchInput + "(.*)") ||
+               book.getAuthorLastName().matches("(.*)" + searchInput + "(.*)"));
     }
 
 }
