@@ -1,17 +1,18 @@
 package be.cegeka.bibliothouris.application;
 
+import be.cegeka.bibliothouris.domain.books.BookService;
+import be.cegeka.bibliothouris.domain.rental.Rental;
+import be.cegeka.bibliothouris.domain.rental.RentalService;
+import be.cegeka.bibliothouris.domain.users.UserService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-        import be.cegeka.bibliothouris.domain.books.Book;
-        import be.cegeka.bibliothouris.domain.books.BookService;
-        import be.cegeka.bibliothouris.domain.rental.Rental;
-        import be.cegeka.bibliothouris.domain.rental.RentalService;
-        import be.cegeka.bibliothouris.domain.users.User;
-        import be.cegeka.bibliothouris.domain.users.UserService;
-        import org.springframework.stereotype.Controller;
-        import org.springframework.web.bind.annotation.*;
+import javax.inject.Inject;
+import java.util.List;
 
-        import javax.inject.Inject;
-        import java.util.List;
 /**
  * Created by roelg on 25/01/2017.
  */
@@ -33,5 +34,5 @@ public class RentalController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    void addRental()
+    void addRental(@RequestParam())
 }
