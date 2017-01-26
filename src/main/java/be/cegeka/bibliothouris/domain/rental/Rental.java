@@ -13,13 +13,13 @@ public class Rental {
     private final long id;
     private final User user;
     private final Book book;
-    private final LocalDate rentalDate;
+    private final LocalDate dueDate;
 
-    public Rental(long id, User user, Book book, LocalDate rentalDate) {
+    public Rental(long id, User user, Book book, LocalDate dueDate) {
         this.id = id;
         this.user = user;
         this.book = book;
-        this.rentalDate = rentalDate;
+        this.dueDate = dueDate;
     }
 
     public long getId() {
@@ -34,8 +34,8 @@ public class Rental {
         return book;
     }
 
-    public LocalDate getRentalDate() {
-        return rentalDate;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
 
@@ -49,7 +49,7 @@ public class Rental {
         if (id != rental.id) return false;
         if (user != null ? !user.equals(rental.user) : rental.user != null) return false;
         if (book != null ? !book.equals(rental.book) : rental.book != null) return false;
-        return rentalDate != null ? rentalDate.equals(rental.rentalDate) : rental.rentalDate == null;
+        return dueDate != null ? dueDate.equals(rental.dueDate) : rental.dueDate == null;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class Rental {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (book != null ? book.hashCode() : 0);
-        result = 31 * result + (rentalDate != null ? rentalDate.hashCode() : 0);
+        result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
         return result;
     }
 

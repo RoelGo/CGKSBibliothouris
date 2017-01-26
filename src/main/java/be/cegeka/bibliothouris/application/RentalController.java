@@ -11,6 +11,8 @@ package be.cegeka.bibliothouris.application;
         import org.springframework.web.bind.annotation.*;
 
         import javax.inject.Inject;
+        import javax.xml.bind.ValidationException;
+        import java.time.LocalDate;
         import java.util.List;
 /**
  * Created by roelg on 25/01/2017.
@@ -33,5 +35,24 @@ public class RentalController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    void addRental()
-}
+    void addRental(@RequestParam(value = "id") Long id,
+                   @RequestParam(value = "book") Book book,
+                   @RequestParam(value = "user") User user,
+                   @RequestParam(value = "due date")LocalDate dueDate){
+        try {
+            rentalService.addRental(book,user,dueDate);
+        }catch (ValidationException e){
+            e.printStackTrace();
+        }
+
+    }
+    @RequestMapping(method = RequestMethod.POST)
+    public
+    @ResponseBody
+    void returnBook(@RequestParam(value = "rental") Rental rental){
+        try {
+        rentalService.returnBook(rental);
+    }catch (ValidationException e){
+            e.printStackTrace();
+        }
+}}
