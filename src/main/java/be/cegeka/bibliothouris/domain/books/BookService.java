@@ -28,7 +28,7 @@ public class BookService {
         List<Book> searchList = bookRepository.getAllBooks();
         List<Book> hitList = new ArrayList<>();
         for (Book book : searchList) {
-            if (isbnIsEqual(book, searchInput) || authorFirstNameIsEqual(book, searchInput) || authorLastNameIsEqual(book, searchInput)) {
+            if (hasMatch(book, searchInput)) {
                 hitList.add(book);
             }
         }
@@ -38,15 +38,11 @@ public class BookService {
         return hitList;
     }
 
-    protected boolean isbnIsEqual(Book book, String searchInput) {
-        return book.getISBN().equals(searchInput);
+    protected boolean hasMatch(Book book, String searchInput) {
+
+        return (book.getISBN().contains(searchInput) ||
+                book.getAuthorFirstName().contains(searchInput) ||
+               book.getAuthorLastName().contains(searchInput));
     }
 
-    protected boolean authorFirstNameIsEqual(Book book, String searchInput) {
-        return book.getAuthorFirstName().equals(searchInput);
-    }
-
-    protected boolean authorLastNameIsEqual(Book book, String searchInput) {
-        return book.getAuthorLastName().equals(searchInput);
-    }
 }

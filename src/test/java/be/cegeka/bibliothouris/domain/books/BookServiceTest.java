@@ -53,10 +53,11 @@ public class BookServiceTest {
 
     }
 
+
+
     @Test
-    public void searchBook() throws Exception {
+    public void searchBookWithOneLetterInput(){
         List<Book> testList = new ArrayList<>();
-        List<Book> testList2 = new ArrayList<>();
         Book testBook = new Book("Harry 2", "1235670123", "J.K", "Rowling");
         Book testBook2 = new Book("Matilda", "3335670123", "Roald", "Dahl");
         Book testBook3 = new Book("Harry 3", "333567884", "J.K", "Rowling");
@@ -64,15 +65,60 @@ public class BookServiceTest {
         Book testBook5 = new Book("Trainspotting", "33356701332", "Irvin", "Welsh");
         testList.add(testBook);
         testList.add(testBook3);
-        testList2.add(testBook3);
-        testList2.add(testBook2);
-
         when(bookRepository.getAllBooks()).thenReturn(Arrays.asList(testBook, testBook2, testBook3, testBook4, testBook5));
+        assertThat(bookService.searchBook("J")).isEqualTo(testList);
+    }
 
-        assertThat(bookService.searchBook("J.K")).isEqualTo(testList);
-        assertThat(bookService.searchBook("Irvin")).isEqualTo(Arrays.asList(testBook5));
-        //assertThat(bookService.searchBook("333")).isEqualTo(testList2);
+    @Test
+    public void searchBookWithFullName() {
+        List<Book> testList = new ArrayList<>();
+        Book testBook = new Book("Harry 2", "1235670123", "J.K", "Rowling");
+        Book testBook2 = new Book("Matilda", "3335670123", "Roald", "Dahl");
+        Book testBook3 = new Book("Harry 3", "333567884", "J.K", "Rowling");
+        Book testBook4 = new Book("The Old Man And The Sea", "3335679456", "Ernest", "Hemingway");
+        Book testBook5 = new Book("Trainspotting", "33356701332", "Irvin", "Welsh");
+        testList.add(testBook);
+        testList.add(testBook3);
+        when(bookRepository.getAllBooks()).thenReturn(Arrays.asList(testBook, testBook2, testBook3, testBook4, testBook5));
         assertThat(bookService.searchBook("Rowling")).isEqualTo(testList);
+    }
+    @Test
+    public void searchBookWithThreeLetterInput(){
+        List<Book> testList = new ArrayList<>();
+        Book testBook = new Book("Harry 2", "1235670123", "J.K", "Rowling");
+        Book testBook2 = new Book("Matilda", "3335670123", "Roald", "Dahl");
+        Book testBook3 = new Book("Harry 3", "333567884", "J.K", "Rowling");
+        Book testBook4 = new Book("The Old Man And The Sea", "3335679456", "Ernest", "Hemingway");
+        Book testBook5 = new Book("Trainspotting", "33356701332", "Irvin", "Welsh");
+        testList.add(testBook5);
+        when(bookRepository.getAllBooks()).thenReturn(Arrays.asList(testBook, testBook2, testBook3, testBook4, testBook5));
+        assertThat(bookService.searchBook("Irv")).isEqualTo(testList);
+    }
+
+    @Test
+    public void searchBookWithLongInput(){
+        List<Book> testList = new ArrayList<>();
+        Book testBook = new Book("Harry 2", "1235670123", "J.K", "Rowling");
+        Book testBook2 = new Book("Matilda", "3335670123", "Roald", "Dahl");
+        Book testBook3 = new Book("Harry 3", "333567884", "J.K", "Rowling");
+        Book testBook4 = new Book("The Old Man And The Sea", "3335679456", "Ernest", "Hemingway");
+        Book testBook5 = new Book("Trainspotting", "33356701332", "Irvin", "Welsh");
+        //testList.add(testBook5);
+        when(bookRepository.getAllBooks()).thenReturn(Arrays.asList(testBook, testBook2, testBook3, testBook4, testBook5));
+        assertThat(bookService.searchBook("Irvzfzefafizfjzifjfjaiofjaiofjaifjaefjafkegia")).isEqualTo(testList);
+    }
+
+    @Test
+    public void searchBookWithISBNInput(){
+        List<Book> testList = new ArrayList<>();
+        Book testBook = new Book("Harry 2", "1235670123", "J.K", "Rowling");
+        Book testBook2 = new Book("Matilda", "3335670123", "Roald", "Dahl");
+        Book testBook3 = new Book("Harry 3", "333567884", "J.K", "Rowling");
+        Book testBook4 = new Book("The Old Man And The Sea", "3335679456", "Ernest", "Hemingway");
+        Book testBook5 = new Book("Trainspotting", "33356701332", "Irvin", "Welsh");
+        testList.add(testBook5);
+        when(bookRepository.getAllBooks()).thenReturn(Arrays.asList(testBook, testBook2, testBook3, testBook4, testBook5));
+        assertThat(bookService.searchBook("33356701332")).isEqualTo(testList);
     }
 
 }
