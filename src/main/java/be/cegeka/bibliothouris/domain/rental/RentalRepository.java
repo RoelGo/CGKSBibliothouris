@@ -14,17 +14,13 @@ public class RentalRepository {
     private List<Rental> rentals = new ArrayList<>();
 
     public void addRental(Rental rental) throws ValidationException {
-        String errorMessage = "";
+
         if (rental.getBook().getISBN().isEmpty()) {
-            errorMessage += "ISBN is empty";
-        }
-        if (rental.getUser().getInsz().isEmpty()){
-            errorMessage += "Insz is empty";
-        }
-        if (errorMessage.isEmpty()){
-        rentals.add(rental);}
-        else {
-            throw new ValidationException(errorMessage);
+            throw new ValidationException("ISBN is empty");
+        }else if (rental.getUser().getInsz().isEmpty()){
+            throw new ValidationException("Insz is empty");
+        } else {
+        rentals.add(rental);
         }
     }
 
