@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @Controller
@@ -30,9 +31,13 @@ public class BookController {
     @ResponseBody
     void addBook(@RequestParam(value = "title") String title,
                  @RequestParam(value = "ISBN") String ISBN,
-                 @RequestParam(value = "authorFirstName") String firstName,
+                 @RequestParam(value = "authorFirstName",required = false) String firstName,
                  @RequestParam(value = "authorLastName") String lastName) {
-        bookService.addBook(title, ISBN, firstName, lastName);
+        try {
+            bookService.addBook(title, ISBN, firstName, lastName);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
     }
 
 }
