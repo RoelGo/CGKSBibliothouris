@@ -38,6 +38,9 @@ public class Rental {
         return dueDate;
     }
 
+    public String getISBN(){return this.book.getISBN();}
+
+    
 
     @Override
     public boolean equals(Object o) {

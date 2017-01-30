@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.bind.ValidationException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -25,7 +26,7 @@ public class RentalService {
     @Inject
     private UserRepository userRepository;
 
-    public void addRental( String INSZ,String ISBN, LocalDate dueDate) throws ValidationException {
+    public void addRental( String INSZ,String ISBN) throws ValidationException {
         Book rentedBook=null;
         User rentingUser=null;
         for (Book books : bookRepository.getAllBooks()) {
@@ -35,7 +36,11 @@ public class RentalService {
             if (INSZ.isEmpty()) {throw new ValidationException("Insz is empty");}
             if (users.getInsz().equals(INSZ)) {rentingUser = users;}
         }
-            rentalRepository.addRental(new Rental(counter.incrementAndGet(),rentingUser,rentedBook,LocalDate.now().plusWeeks(3)));
+        for (Rental rentedBooks : rentalRepository.getAllRentals()) {
+            if (rentedBook.getISBN().equals(ISBN)) {
+                throw new ValidationException("The book is already rented");
+            }}
+        rentalRepository.addRental(new Rental(counter.incrementAndGet(), rentingUser, rentedBook, LocalDate.now().plusWeeks(3)));
 
     }
 
@@ -46,7 +51,7 @@ public class RentalService {
     public void returnBook(String ISBN) throws ValidationException {
         boolean isFound = false;
         for (Rental rentedBooks : rentalRepository.getAllRentals()) {
-            if (rentedBooks.getBook().getISBN().equals(ISBN)){
+            if (rentedBooks.getISBN().equals(ISBN)){
                 isFound=true;
                 if (rentedBooks.getDueDate().isBefore(LocalDate.now())){
                     System.out.println("Return date expired! You did not returned your book on time!");
@@ -56,4 +61,11 @@ public class RentalService {
         }
         if (!isFound){ throw new ValidationException("This book was not rented"); }
     }
+
+    public List<Rental> overdueSearch(){
+         List<Rental> overdueBooks = new ArrayList<>();
+        for (Rental rentedBooks : rentalRepository.getAllRentals()) {
+            if (rentedBooks.getDueDate().isBefore(LocalDate.now())){overdueBooks.add(rentedBooks);}
+        }
+    return overdueBooks;}
 }
