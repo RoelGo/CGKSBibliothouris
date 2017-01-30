@@ -26,6 +26,8 @@ public class BookServiceTest {
 
     @Mock
     private BookRepository bookRepository;
+    @Mock
+    private BookValidator bookValidator;
 
     /*
     @Before
@@ -35,8 +37,9 @@ public class BookServiceTest {
   */
     @Test
     public void addBook() throws Exception {
-        bookService.addBook("Harry Potter", "123456789", "J.K", "Rowling");
-        verify(bookRepository).addBook(new Book("Harry Potter", "123456789", "J.K", "Rowling"));
+        when(bookValidator.isValid("978902")).thenReturn(true);
+        bookService.addBook("Harry Potter", "978902", "J.K", "Rowling");
+        verify(bookRepository).addBook(new Book("Harry Potter", "978902", "J.K", "Rowling"));
     }
 
     @Test
@@ -53,6 +56,6 @@ public class BookServiceTest {
 
 
 
-   
+
 
 }

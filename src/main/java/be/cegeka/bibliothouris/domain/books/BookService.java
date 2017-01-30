@@ -25,7 +25,6 @@ public class BookService {
         else{
             throw new ValidationException("ISBN is not valid.");
         }
-
     }
 
     public String getBooksByCriteria(String criteria){
