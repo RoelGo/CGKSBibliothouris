@@ -22,7 +22,9 @@ import java.util.List;
 public class RentalController {
     @Inject
     private RentalService rentalService;
+    @Inject
     private UserService userService;
+    @Inject
     private BookService bookService;
 
     @RequestMapping(value = "/getRentals", method = RequestMethod.GET)
@@ -35,11 +37,11 @@ public class RentalController {
     @RequestMapping(value ="/addRental", method = RequestMethod.POST)
     public
     @ResponseBody
-    void addRental(@RequestParam(value = "book") Book book,
-                   @RequestParam(value = "user") User user,
+    void addRental(@RequestParam(value = "INSZ") String insz,
+                   @RequestParam(value = "ISBN") String isbn,
                    @RequestParam(value = "due date")LocalDate dueDate){
         try {
-            rentalService.addRental(book,user,dueDate);
+            rentalService.addRental(insz,isbn,dueDate);
         }catch (ValidationException e){
             e.printStackTrace();
         }
@@ -48,9 +50,9 @@ public class RentalController {
     @RequestMapping(value = "/returnBook", method = RequestMethod.POST)
     public
     @ResponseBody
-    void returnBook(@RequestParam(value = "rental") Rental rental){
+    void returnBook(@RequestParam(value = "ISBN") String ISBN){
         try {
-        rentalService.returnBook(rental);
+        rentalService.returnBook(ISBN);
     }catch (ValidationException e){
             e.printStackTrace();
         }

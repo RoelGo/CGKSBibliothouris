@@ -1,7 +1,9 @@
 package be.cegeka.bibliothouris.domain.rental;
 
 import be.cegeka.bibliothouris.domain.books.Book;
+import be.cegeka.bibliothouris.domain.books.BookRepository;
 import be.cegeka.bibliothouris.domain.users.User;
+import be.cegeka.bibliothouris.domain.users.UserRepository;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,9 +20,22 @@ public class RentalService {
     private final AtomicLong counter = new AtomicLong();
     @Inject
     private RentalRepository rentalRepository;
+    @Inject
+    private BookRepository bookRepository;
+    @Inject
+    private UserRepository userRepository;
 
-    public void addRental(Book book, User user, LocalDate dueDate) throws ValidationException {
-        rentalRepository.addRental(new Rental(counter.incrementAndGet(), user, book, LocalDate.now().plusWeeks(3)));
+    public void addRental( String INSZ,String ISBN, LocalDate dueDate) throws ValidationException {
+        Book rentedBook=null;
+        User rentingUser=null;
+        for (Book books : bookRepository.getAllBooks()) {
+            if (ISBN.isEmpty()) {throw new ValidationException("ISBN is empty");}
+            if(books.getISBN().equals(ISBN)){  rentedBook = books;}}
+        for (User users : userRepository.getAllUsers()) {
+            if (INSZ.isEmpty()) {throw new ValidationException("Insz is empty");}
+            if (users.getInsz().equals(INSZ)) {rentingUser = users;}
+        }
+            rentalRepository.addRental(new Rental(counter.incrementAndGet(),rentingUser,rentedBook,LocalDate.now().plusWeeks(3)));
 
     }
 
@@ -28,17 +43,17 @@ public class RentalService {
         return rentalRepository.getAllRentals();
     }
 
-    public void returnBook(Rental rental) throws ValidationException {
-        boolean isUnique = true;
+    public void returnBook(String ISBN) throws ValidationException {
+        boolean isFound = false;
         for (Rental rentedBooks : rentalRepository.getAllRentals()) {
-           isUnique = !rentedBooks.getBook().getISBN().equals(rental.getBook().getISBN());
-        }
-        if (!isUnique){
-            rentalRepository.removeRental(rental);
-            if (rental.getDueDate().isBefore(LocalDate.now())){
-                System.out.println("Return date expired! You did not returned your book on time!");
+            if (rentedBooks.getBook().getISBN().equals(ISBN)){
+                isFound=true;
+                if (rentedBooks.getDueDate().isBefore(LocalDate.now())){
+                    System.out.println("Return date expired! You did not returned your book on time!");
+                }
+                rentalRepository.removeRental(rentedBooks);
             }
         }
-        else {throw new ValidationException("This book was not rented");}
+        if (!isFound){ throw new ValidationException("This book was not rented"); }
     }
 }

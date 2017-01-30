@@ -13,16 +13,7 @@ public class RentalRepository {
 
     private List<Rental> rentals = new ArrayList<>();
 
-    public void addRental(Rental rental) throws ValidationException {
-
-        if (rental.getBook().getISBN().isEmpty()) {
-            throw new ValidationException("ISBN is empty");
-        }else if (rental.getUser().getInsz().isEmpty()){
-            throw new ValidationException("Insz is empty");
-        } else {
-        rentals.add(rental);
-        }
-    }
+    public void addRental(Rental rental) {rentals.add(rental);}
 
     public void removeRental(Rental rental) {
         rentals.remove(rental);
