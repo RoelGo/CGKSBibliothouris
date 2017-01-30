@@ -30,15 +30,7 @@ public class UserService {
         if (!isUnique) {
             errorMessage += "INSZ is not unique";
         }
-        if (lastName.isEmpty()) {
-            errorMessage += " Please fill in last name";
-        }
-        if (city.isEmpty()) {
-            errorMessage += " Please fill in city";
-        }
-        if (insz.isEmpty()) {
-            errorMessage += " Please fill in INSZ";
-        }
+
 
         if (errorMessage.isEmpty()) {
             userRepository.addUser(new User(counter.incrementAndGet(), firstName, lastName, insz, city, street, doorNumber, postalCode));

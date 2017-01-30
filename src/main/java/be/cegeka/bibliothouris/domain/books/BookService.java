@@ -2,6 +2,7 @@ package be.cegeka.bibliothouris.domain.books;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +14,18 @@ public class BookService {
 
     @Inject
     private BookRepository bookRepository;
+    @Inject
+    private BookValidator bookValidator;
 
 
-    public void addBook(String title, String ISBN, String firstName, String lastName) {
-        bookRepository.addBook(new Book(title, ISBN, firstName, lastName));
+    public void addBook(String title, String ISBN, String firstName, String lastName) throws ValidationException {
+        if (bookValidator.isValid(ISBN)) {
+            bookRepository.addBook(new Book(title, ISBN, firstName, lastName));
+        }
+        else{
+            throw new ValidationException("ISBN is not valid.");
+        }
+
     }
 
     public List<Book> getAllBooks() {
