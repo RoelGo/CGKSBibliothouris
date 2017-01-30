@@ -21,6 +21,7 @@ public class RentalService {
 
     public void addRental(Book book, User user, LocalDate dueDate) throws ValidationException {
         rentalRepository.addRental(new Rental(counter.incrementAndGet(), user, book, LocalDate.now().plusWeeks(3)));
+
     }
 
     public List<Rental> getAllRentals() {

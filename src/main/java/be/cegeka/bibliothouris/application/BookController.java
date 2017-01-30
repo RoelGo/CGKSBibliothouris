@@ -28,7 +28,10 @@ public class BookController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    void addBook(@RequestParam(value = "title") String title, @RequestParam(value = "ISBN") String ISBN, @RequestParam(value = "authorFirstName") String firstName, @RequestParam(value = "authorLastName") String lastName) {
+    void addBook(@RequestParam(value = "title") String title,
+                 @RequestParam(value = "ISBN") String ISBN,
+                 @RequestParam(value = "authorFirstName") String firstName,
+                 @RequestParam(value = "authorLastName") String lastName) {
         bookService.addBook(title, ISBN, firstName, lastName);
     }
 
