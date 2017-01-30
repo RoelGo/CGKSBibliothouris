@@ -22,8 +22,29 @@ public class UserService {
                         String doorNumber,
                         String postalCode) throws ValidationException {
 
-        userRepository.addUser(new User(counter.incrementAndGet(), firstName, lastName, insz, city, street, doorNumber, postalCode));
+        boolean isUnique = true;
+        String errorMessage = "";
+        for (User user1 : userRepository.getAllUsers()) {
+            isUnique = !user1.getInsz().equals(insz);
+        }
+        if (!isUnique) {
+            errorMessage += "INSZ is not unique";
+        }
+        if (lastName.isEmpty()) {
+            errorMessage += " Please fill in last name";
+        }
+        if (city.isEmpty()) {
+            errorMessage += " Please fill in city";
+        }
+        if (insz.isEmpty()) {
+            errorMessage += " Please fill in INSZ";
+        }
 
+        if (errorMessage.isEmpty()) {
+            userRepository.addUser(new User(counter.incrementAndGet(), firstName, lastName, insz, city, street, doorNumber, postalCode));
+        } else {
+            throw new ValidationException(errorMessage);
+        }
     }
 
 
