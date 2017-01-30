@@ -68,4 +68,12 @@ public class RentalService {
             if (rentedBooks.getDueDate().isBefore(LocalDate.now())){overdueBooks.add(rentedBooks);}
         }
     return overdueBooks;}
+
+    public String memberSearchForRentedBooks (String firstName,String lastName){
+        for (Rental rental : rentalRepository.getAllRentals()){
+            if (rental.getMemberFirstName().equals(firstName) && rental.getMemberLastName().equals(lastName)){
+                return rental.getBook().getTitle();
+            }}return "No book rental was found";
+        
+    }
 }

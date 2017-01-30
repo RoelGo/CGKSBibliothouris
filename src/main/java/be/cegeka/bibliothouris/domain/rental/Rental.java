@@ -40,7 +40,9 @@ public class Rental {
 
     public String getISBN(){return this.book.getISBN();}
 
-    
+    public String getMemberFirstName(){return this.user.getFirstName();}
+
+    public String getMemberLastName(){return this.user.getLastName();}
 
     @Override
     public boolean equals(Object o) {
