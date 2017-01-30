@@ -38,10 +38,10 @@ public class RentalController {
     public
     @ResponseBody
     void addRental(@RequestParam(value = "INSZ") String insz,
-                   @RequestParam(value = "ISBN") String isbn,
-                   @RequestParam(value = "due date")LocalDate dueDate){
+                   @RequestParam(value = "ISBN") String isbn
+                  ){
         try {
-            rentalService.addRental(insz,isbn,dueDate);
+            rentalService.addRental(insz,isbn);
         }catch (ValidationException e){
             e.printStackTrace();
         }
